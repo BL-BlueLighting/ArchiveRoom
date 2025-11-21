@@ -12,8 +12,9 @@ include 'config.php';
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title><?php echo $title; ?></title>
     <!-- Tabler CDN -->
-  <link rel="stylesheet"
+   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
   </head>
   <body class="antialiased">
     <header class="navbar navbar-expand-md navbar-light d-print-none">
@@ -26,9 +27,9 @@ include 'config.php';
         </a>
         <div class="navbar-nav ms-auto">
           <?php if ($currentUser): ?>
-            <span class="nav-link">你好，<?= e($currentUser['username']) ?></span>
-            <a class="btn btn-outline-primary" href="create.php">发布文档</a>
-            <a class="btn btn-link" href="logout.php">退出</a>
+            <span class="nav-link">研究员 <?= e($currentUser['username']) ?></span>
+            <a class="btn btn-outline-primary" href="create.php">新建文档</a>
+            <a class="btn btn-link" href="logout.php">注销</a>
           <?php else: ?>
             <a class="btn btn-primary" href="login.php">登录</a>
             <a class="btn btn-link" href="register.php">注册</a>

@@ -23,7 +23,7 @@ require_once 'templates/header.php';
     <hr>
     <div class="card">
       <div class="card-body">
-        <pre style="white-space:pre-wrap; word-wrap:break-word;"><?= e($doc['content']) ?></pre>
+        <pre style="white-space:pre-wrap; word-wrap:break-word;" id="markd"></pre>
       </div>
     </div>
 
@@ -64,5 +64,9 @@ require_once 'templates/header.php';
     </div>
   </div>
 </div>
+<script>
+  var textContent = `<?= e($doc['content']) ?>`;
+  document.getElementById("markd").innerHTML = new showdown.Converter().makeHtml(textContent);
+</script>
 
 <?php require_once 'templates/footer.php'; ?>
