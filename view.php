@@ -14,6 +14,12 @@ if ($user) {
     $uid = strval($user['id']);
     if (isset($votes[$uid])) $userVote = intval($votes[$uid]);
 }
+
+if ($doc ["status"] == "normal") { $doc ["status-color"] = "blue"; $doc ["status"] = "正常"; }
+elseif ($doc ["status"] == "waiting-for-delete") { $doc ["status-color"] = "red"; $doc ["status"] = "待删除"; } 
+elseif ($doc ["status"] == "deleted") { $doc ["status-color"] = "gray"; $doc ["status"] = "已删除"; }
+
+
 require_once 'templates/header.php';
 ?>
 <div class="row">
@@ -40,7 +46,7 @@ require_once 'templates/header.php';
       <div class="card-body">
         <h5>投票 - VOTE FOR THIS DOCUMENT.</h5>
         <div class="mb-2">
-          <div>分数（votenum）: <strong><?= intval($summary['votenum']) ?></strong></div>
+          <div>分数: <strong><?= intval($summary['votenum']) ?></strong></div>
           <div>Up: <?= $summary['up'] ?> · Down: <?= $summary['down'] ?></div>
         </div>
 
@@ -49,17 +55,25 @@ require_once 'templates/header.php';
             <form method="post" action="vote.php">
               <input type="hidden" name="id" value="<?= e($doc['id']) ?>" />
               <input type="hidden" name="vote" value="<?= $userVote === 1 ? 0 : 1 ?>" />
-              <button class="btn <?= $userVote === 1 ? 'btn-success' : 'btn-outline-success' ?>">▲ Up</button>
+              <button class="btn <?= $userVote === 1 ? 'btn-success' : 'btn-outline-success' ?>">▲</button>
             </form>
             <form method="post" action="vote.php">
               <input type="hidden" name="id" value="<?= e($doc['id']) ?>" />
               <input type="hidden" name="vote" value="<?= $userVote === -1 ? 0 : -1 ?>" />
-              <button class="btn <?= $userVote === -1 ? 'btn-danger' : 'btn-outline-danger' ?>">▼ Down</button>
+              <button class="btn <?= $userVote === -1 ? 'btn-danger' : 'btn-outline-danger' ?>">▼</button>
             </form>
           </div>
         <?php else: ?>
           <div>请先 <a href="login.php">登录</a> 后投票。</div>
         <?php endif; ?>
+
+        <br/>
+
+        <h5>相关信息 - INFORMATIONS</h5>
+        <span class="status status-<?= $doc['status-color']?>">
+          <span class="status-dot status-dot-animated"></span>
+          <?= $doc['status']?>
+        </span>
       </div>
     </div>
   </div>

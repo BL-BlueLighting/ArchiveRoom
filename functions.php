@@ -115,6 +115,7 @@ function save_doc($doc) {
     if (empty($doc['id'])) $doc['id'] = generate_doc_id();
     $path = DOCS_DIR . '/' . $doc['id'] . '.json';
     $doc['updated_at'] = date('c');
+    file_put_contents("./data/docs/updatefile", "updated");
     return write_json_file($path, $doc);
 }
 

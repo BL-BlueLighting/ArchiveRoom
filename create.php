@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'author_id' => $user['id'],
             'author_name' => $user['username'],
             'created_at' => date('c'),
+            'status' => "normal"
         ];
         if (save_doc($doc)) {
             header('Location: index.php');

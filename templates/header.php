@@ -26,9 +26,10 @@ include 'config.php';
           <span class="navbar-brand-text">ArchiveROOM.</span>
         </a>
         <div class="navbar-nav ms-auto">
+          <a class="btn btn-link" href="/textlist.php">文档列表</a>
           <?php if ($currentUser): ?>
             <span class="nav-link">研究员 <?= e($currentUser['username']) ?></span>
-            <a class="btn btn-outline-primary" href="create.php">新建文档</a>
+            <a class="btn btn-link" href="create.php">新建文档</a>
             <a class="btn btn-link" href="logout.php">注销</a>
           <?php else: ?>
             <a class="btn btn-primary" href="login.php">登录</a>
