@@ -52,6 +52,15 @@ function get_users() {
     return read_json_file(USERS_FILE) ?: [];
 }
 
+function save_user($user) {
+    $users = read_json_file(USERS_FILE) ?: [];
+    $new_users = [];
+    foreach ($users as $u) { if ($u['id'] !== $user['id']) $new_users[] = $u; }
+    $new_users[] = $user;
+
+    return write_json_file(USERS_FILE, $new_users);
+}
+
 function add_user($username, $password) {
     $users = read_json_file(USERS_FILE) ?: [];
     $id = 1;
@@ -65,6 +74,7 @@ function add_user($username, $password) {
         'username' => $username,
         'password' => $hash,
         'created_at' => date('c'),
+        'permission' => 'Normal'
     ];
     $users[] = $user;
     return write_json_file(USERS_FILE, $users) ? $user : false;

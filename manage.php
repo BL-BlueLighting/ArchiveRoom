@@ -19,9 +19,7 @@ if ($argc < 2) {
     echo '    - user remove <username> <password>'.PHP_EOL;
     echo '    - user list'.PHP_EOL;
     echo PHP_EOL;
-    echo '    - perm give <permname> <username>'.PHP_EOL;
-    echo '    - perm remove <permname> <username>'.PHP_EOL;
-    echo '    - perm list'.PHP_EOL;
+    echo '    - perm add <username> <permname>'.PHP_EOL;
     exit;
 }
 
@@ -63,6 +61,34 @@ if ($argv[1] == 'user') {
         $users = get_users();
         foreach ($users as $user) {
             echo $user['username'].PHP_EOL;
+        }
+    }
+}
+
+// PERMISSION PART //
+if ($argv[1] == 'perm') {
+    if ($argc < 3) {
+        echo 'Usage: php manage.php perm <command>'.PHP_EOL;
+        echo 'Avaliable commands:'.PHP_EOL;
+        echo '    - add <username> <permname>'.PHP_EOL;
+        exit;
+    }
+    if ($argv[2] == 'add') {
+        if ($argc < 5) {
+            echo 'Usage: php manage.php perm add <username> <permname>'.PHP_EOL;
+            exit;
+        } else {
+            $username = $argv[3];
+            $permname = $argv[4];
+
+            $allUsers = get_users();
+            foreach ($allUsers as $user) {
+                if ($user['username'] == $username) {
+                    $user['permission'] = $permname;
+                }
+            }
+            write_json_file(USERS_FILE, $allUsers);
+            echo "Permission added successfully.";
         }
     }
 }
